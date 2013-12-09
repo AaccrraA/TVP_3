@@ -239,6 +239,7 @@ struct PostMachine {
 								tmpE->next = new Expression;
 								tmpE->next->name += R->left[i];
 								tmpE = tmpE->next;
+								tmpE->next = NULL;
 							}
 						}
 						break;
@@ -256,7 +257,7 @@ struct PostMachine {
 						break;
 					}
 				}
-
+				
 				tmpE = E;
 
 				while (tmpE != NULL) {
@@ -265,7 +266,7 @@ struct PostMachine {
 						if (!defineValues(tmpE, tmpE2)) {
 							cout << "Программа завершена.";
 							isEnd = true;
-							exit(0);
+							return;
 						}
 						tmpE2 = tmpE2->next;
 					}
@@ -332,18 +333,15 @@ struct PostMachine {
 					break;
 				}
 				lastL = L;
-				// переходим к следуещему правилу
-				tmpR = tmpR->next;
 			}
 		}
 	}
 };
 
 int main() {
+	setlocale(LC_ALL, "rus");
 	PostMachine PM;
 	PM.initDefault();
 	PM.startProcess();
 	return 0;
 }
-
-
